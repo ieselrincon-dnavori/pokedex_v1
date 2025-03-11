@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.PokedexController"
+            prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css">
+
+    <!-- Campos de búsqueda y nombre del entrenador -->
+    <VBox layoutX="10" layoutY="10" spacing="10">
+        <HBox spacing="10">
+            <Label text="Buscar por Nombre:" />
+            <TextField fx:id="searchByName" />
+            <Label text="Buscar por Tipo:" />
+            <TextField fx:id="searchByType" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Nombre del Entrenador:" />
+            <TextField fx:id="trainerName" />
+        </HBox>
+    </VBox>
+
+    <!-- Tabla de Pokémon -->
+    <TableView fx:id="pokemonTable" layoutX="10" layoutY="130" prefHeight="400.0" prefWidth="600.0" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="selectColumn" text="Seleccionar" />
+            <TableColumn fx:id="nameColumn" styleClass="table-column" text="Nombre" />
+            <TableColumn fx:id="numberColumn" styleClass="table-column" text="Número" />
+            <TableColumn fx:id="typeColumn" styleClass="table-column" text="Tipo" />
+        </columns>
+    </TableView>
+
+    <!-- Detalles del Pokémon -->
+    <VBox fx:id="detailsBox" layoutX="620" layoutY="130" maxWidth="250" prefHeight="400.0" prefWidth="236.0" style="-fx-padding: 10;">
+        <ImageView fx:id="pokemonImage" fitHeight="200" fitWidth="200" styleClass="image-view" />
+        <TextArea fx:id="descriptionArea" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area" wrapText="true" />
+    </VBox>
+
+    <!-- Botones -->
+    <HBox layoutX="10" layoutY="550" spacing="10">
+        <Button mnemonicParsing="false" text="To PDF" onAction="#savePokemonToPDF">
+            <HBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="saveButton" onAction="#savePokemonToPDF" text="Save to PDF" />
+    </HBox>
+
+</AnchorPane>
