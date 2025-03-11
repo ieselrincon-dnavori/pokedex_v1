@@ -53,6 +53,10 @@ public class PokedexController {
         selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         selectColumn.setCellFactory(CheckBoxTableCell.forTableColumn(selectColumn));
 
+
+        selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+        selectColumn.setCellFactory(CheckBoxTableCell.forTableColumn(selectColumn));
+
         pokemonTable.setItems(pokemonData);
         pokemonTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
         pokemonTable.getSelectionModel().selectedItemProperty().addListener(
