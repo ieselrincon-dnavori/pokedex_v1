@@ -3,23 +3,26 @@ package org.example;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class PokedexController {
+public class PokedexController_bk {
 
     @FXML
     private TableView<Pokemon> pokemonTable;
+    @FXML
+    private TableColumn<Pokemon, Boolean> selectColumn;
     @FXML
     private TableColumn<Pokemon, String> nameColumn;
     @FXML
@@ -43,9 +46,22 @@ public class PokedexController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asObject());
         typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+
+        // Configurar la columna de selección con checkboxes
+        selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+        selectColumn.setCellFactory(CheckBoxTableCell.forTableColumn(selectColumn));
         pokemonTable.setItems(pokemonData);
         pokemonTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
-        pokemonTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPokemonDetails(newValue));
+        pokemonTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPokemonDetails(newValue));
+      pokemonTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+
+      pokemonData.forEach(pokemon ->
+              pokemon.selectedProperty().addListener((obs, oldValue, newValue) ->
+                      System.out.println(pokemon.getName() + " seleccionado: " + newValue)
+              )
+      );
+
 
       loadPokemonData();
 
@@ -68,35 +84,24 @@ public class PokedexController {
         }
     }
 
-    @FXML
-    private ProgressBar progressBar;
-
     private void loadPokemonData() {
-        progressBar.setVisible(true);
-        progressBar.setProgress(0);
-        int totalPokemon = 150;
-
         CompletableFuture.runAsync(() -> {
-            for (int i = 1; i <= totalPokemon; i++) {
+            for (int i = 1; i <= 5; i++) {
                 try {
                     Pokemon pokemon = PokemonAPI.getPokemon(i);
-                    int progress = i; // Captura el índice actual
-                    javafx.application.Platform.runLater(() -> {
-                        pokemonData.add(pokemon);
-                        progressBar.setProgress((double) progress / totalPokemon); // Actualiza el progreso
-                    });
+                    javafx.application.Platform.runLater(() -> pokemonData.add(pokemon));
                 } catch (IOException | InterruptedException e) {
-                    ErrorManager.handleException(e, "Error en la API", true);
+                    ErrorManager.handleException(e, "https://acortar.link/59JXpK", true);
                 }
             }
-            javafx.application.Platform.runLater(() -> progressBar.setVisible(false)); // Oculta al terminar
         });
     }
 
-
     @FXML
     private void savePokemonToPDF() {
-        List<Pokemon> selectedPokemons = pokemonTable.getSelectionModel().getSelectedItems();
+        List<Pokemon> selectedPokemons = pokemonData.stream()
+                .filter(Pokemon::isSelected)
+                .collect(Collectors.toList());
 
         if (!selectedPokemons.isEmpty()) {
             String filePath = Paths.get(System.getProperty("user.home"), "pokemon_details.pdf").toString();
@@ -106,7 +111,6 @@ public class PokedexController {
             System.out.println("No hay ningún Pokémon seleccionado.");
         }
     }
-
 
     private void filterPokemonList() {
         String nameFilter = searchByName.getText().toLowerCase();

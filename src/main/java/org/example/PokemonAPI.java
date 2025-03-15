@@ -17,15 +17,15 @@ public class PokemonAPI {
 
     public static Pokemon getPokemon(int id) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
+
+        // Solicitud al endpoint principal del Pokémon
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL + id))
                 .build();
-
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String json = response.body();
+        JsonObject jsonObject = new Gson().fromJson(response.body(), JsonObject.class);
 
-        JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
-
+        // Recuperar datos básicos del Pokémon
         String name = jsonObject.get("name").getAsString();
         int number = jsonObject.get("id").getAsInt();
         String type = jsonObject.getAsJsonArray("types").get(0).getAsJsonObject().get("type").getAsJsonObject().get("name").getAsString();
@@ -38,9 +38,23 @@ public class PokemonAPI {
 
         String height = jsonObject.get("height").getAsString();
         String weight = jsonObject.get("weight").getAsString();
+        String baseExperience = jsonObject.get("base_experience").getAsString(); // Cambiado de 'pokemonObject' a 'jsonObject'
 
-        // Ajustar el orden de los parámetros según el constructor de Pokemon
-        return new Pokemon(name, number, type, abilities, height, weight, imageUrl);
+        // Solicitud al endpoint de especie para datos adicionales
+        HttpRequest speciesRequest = HttpRequest.newBuilder()
+                .uri(URI.create("https://pokeapi.co/api/v2/pokemon-species/" + id))
+                .build();
+        HttpResponse<String> speciesResponse = client.send(speciesRequest, HttpResponse.BodyHandlers.ofString());
+        JsonObject speciesObject = new Gson().fromJson(speciesResponse.body(), JsonObject.class);
+
+        String habitat = speciesObject.get("habitat") != null
+                ? speciesObject.getAsJsonObject("habitat").get("name").getAsString()
+                : "Desconocido";
+        String evolutionChainUrl = speciesObject.getAsJsonObject("evolution_chain").get("url").getAsString();
+
+        // Devolver un nuevo Pokémon con todos los datos
+        return new Pokemon(name, number, type, abilities, height, weight, imageUrl, baseExperience, habitat, evolutionChainUrl);
     }
+
 }
 

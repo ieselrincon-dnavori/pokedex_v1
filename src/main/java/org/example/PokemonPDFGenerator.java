@@ -24,16 +24,19 @@ public class PokemonPDFGenerator {
             PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-
             // Añadir nombre del entrenador al PDF
             document.add(new Paragraph("Entrenador: " + trainerName + "\n\n"));
-
             for (Pokemon pokemon : pokemons) {
                 document.add(new Paragraph("Nombre: " + pokemon.getName()));
                 document.add(new Paragraph("Tipo: " + pokemon.getType()));
                 document.add(new Paragraph("Habilidades: " + pokemon.getAbilities()));
                 document.add(new Paragraph("Altura: " + (Double.parseDouble(pokemon.getHeight()) / 10) + " m"));
                 document.add(new Paragraph("Peso: " + (Double.parseDouble(pokemon.getWeight()) / 10) + " kg"));
+
+                // Añadir los nuevos campos al PDF
+                document.add(new Paragraph("Experiencia Base: " + pokemon.getBaseExperience()));
+                document.add(new Paragraph("Hábitat: " + pokemon.getHabitat()));
+                document.add(new Paragraph("Cadena Evolutiva: " + pokemon.getEvolutionChain()));
 
                 try {
                     ImageData imageData = ImageDataFactory.create(pokemon.getImageUrl());

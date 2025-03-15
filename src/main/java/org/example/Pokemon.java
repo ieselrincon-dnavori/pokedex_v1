@@ -1,7 +1,5 @@
 package org.example;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -15,9 +13,12 @@ public class Pokemon {
     private final StringProperty height;
     private final StringProperty weight;
     private final StringProperty imageUrl;
-    private final BooleanProperty selected;
+    private final StringProperty baseExperience;
+    private final StringProperty habitat;
+    private final StringProperty evolutionChain;
 
-    public Pokemon(String name, int number, String type, String abilities, String height, String weight, String imageUrl) {
+    public Pokemon(String name, int number, String type, String abilities, String height, String weight, String imageUrl,
+                   String baseExperience, String habitat, String evolutionChain) {
         this.name = new SimpleStringProperty(name);
         this.number = new SimpleIntegerProperty(number);
         this.type = new SimpleStringProperty(type);
@@ -25,8 +26,11 @@ public class Pokemon {
         this.height = new SimpleStringProperty(height);
         this.weight = new SimpleStringProperty(weight);
         this.imageUrl = new SimpleStringProperty(imageUrl);
-        this.selected = new SimpleBooleanProperty(false);
+        this.baseExperience = new SimpleStringProperty(baseExperience);
+        this.habitat = new SimpleStringProperty(habitat);
+        this.evolutionChain = new SimpleStringProperty(evolutionChain);
     }
+
 
     public String getName() {
         return name.get();
@@ -54,10 +58,6 @@ public class Pokemon {
 
     public String getImageUrl() {
         return imageUrl.get();
-    }
-
-    public Boolean getSelected() {
-        return selected.get();
     }
 
     public void setName(String name) {
@@ -88,10 +88,6 @@ public class Pokemon {
         this.imageUrl.set(imageUrl);
     }
 
-    public void setSelected(Boolean selected) {
-        this.selected.set(selected);
-    }
-
     public StringProperty nameProperty() {
         return name;
     }
@@ -120,12 +116,16 @@ public class Pokemon {
         return imageUrl;
     }
 
-    public BooleanProperty selectedProperty() {
-        return selected;
+    public String getBaseExperience() {
+        return baseExperience.get();
     }
 
-    public boolean isSelected() {
-        return selected.get();
+    public String getHabitat() {
+        return habitat.get();
     }
+
+    public String getEvolutionChain() {
+        return evolutionChain.get();
+    }
+
 }
-
