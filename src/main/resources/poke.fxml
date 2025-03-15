@@ -4,14 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane opacity="0.7"
-            prefHeight="600.0"
-            prefWidth="880.0"
-            style="-fx-background-image: url('pokemonFondo.jpeg'); -fx-background-size: cover;"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.PokedexController">
+<AnchorPane opacity="0.7" prefHeight="600.0" prefWidth="880.0" style="-fx-background-image: url('pokemonFondo.jpeg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PokedexController">
 
     <!-- VBox con todos los campos de búsqueda -->
     <VBox layoutX="10" layoutY="10" spacing="10" style="          -fx-background-color: white;          -fx-padding: 10;          -fx-background-radius: 15;          -fx-border-radius: 15;          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 5); ">
@@ -37,7 +30,7 @@
 
 
     <!-- Tabla de Pokémon -->
-    <TableView fx:id="pokemonTable" layoutX="10" layoutY="130" prefHeight="400.0" prefWidth="600.0" styleClass="table-view">
+    <TableView fx:id="pokemonTable" layoutX="10" layoutY="149.0" prefHeight="381.0" prefWidth="600.0" styleClass="table-view">
 
         <columns>
             <TableColumn fx:id="nameColumn" text="Nombre" />
@@ -54,8 +47,9 @@
 
     <!-- Botones -->
     <HBox layoutX="10.0" layoutY="530.0" spacing="10" style="-fx-padding: 10;">
-        <Button onAction="#savePokemonToPDF" prefHeight="25.0" prefWidth="100.0" text="Guardar PDF" />
-        <ProgressBar fx:id="progressBar" layoutX="50" layoutY="50" prefWidth="100" visible="false" />
+        <Button onAction="#savePokemonToPDF" prefHeight="20.0" prefWidth="100.0" text="Guardar PDF" />
+        <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="130.0" prefHeight="25.0" prefWidth="424.0" progress="0.0" />
     </HBox>
+
 
 </AnchorPane>

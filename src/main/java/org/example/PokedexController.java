@@ -74,7 +74,7 @@ public class PokedexController {
     private void loadPokemonData() {
         progressBar.setVisible(true);
         progressBar.setProgress(0);
-        int totalPokemon = 150;
+        int totalPokemon = 10;
 
         CompletableFuture.runAsync(() -> {
             for (int i = 1; i <= totalPokemon; i++) {

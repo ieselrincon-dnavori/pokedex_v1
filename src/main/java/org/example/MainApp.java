@@ -24,6 +24,8 @@ public class MainApp extends Application {
         //anchoLargo fijo
         primaryStage.setMaxWidth(880);
         primaryStage.setMaxHeight(620);
+        primaryStage.setMinWidth(880);
+        primaryStage.setMinHeight(620);
 
 
         //
