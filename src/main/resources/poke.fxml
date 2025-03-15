@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.PokedexController"
-            prefHeight="600.0" prefWidth="800.0">
-    <!--  prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css"> -->
-    <!-- Campos de búsqueda y nombre del entrenador -->
-    <VBox layoutX="10" layoutY="10" spacing="10">
+<AnchorPane opacity="0.7" prefHeight="600.0" prefWidth="880.0" style="-fx-background-image: url('pokemonFondo.jpeg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PokedexController">
+
+    <!-- VBox con todos los campos de búsqueda -->
+    <VBox layoutX="10" layoutY="10" spacing="10" style="          -fx-background-color: white;          -fx-padding: 10;          -fx-background-radius: 15;          -fx-border-radius: 15;          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 5); ">
+
+
+    <!-- Buscar por Nombre -->
         <HBox spacing="10">
-            <Label text="Buscar por Nombre:" />
-            <TextField fx:id="searchByName" />
-            <Label text="Buscar por Tipo:" />
-            <TextField fx:id="searchByType" />
+            <Label prefWidth="150.0" text="Buscar por Nombre:" />
+            <TextField fx:id="searchByName" prefHeight="25.0" prefWidth="150.0" />
         </HBox>
+
+        <!-- Buscar por Tipo -->
         <HBox spacing="10">
-            <Label text="Nombre del Entrenador:" />
-            <TextField fx:id="trainerName" />
+            <Label prefWidth="150.0" text="Buscar por Tipo:" />
+            <TextField fx:id="searchByType" prefHeight="25.0" prefWidth="150.0" />
         </HBox>
+
+        <!-- Nombre del Entrenador -->
+        <HBox spacing="10">
+            <Label prefWidth="150.0" text="Nombre del Entrenador:" />
+            <TextField fx:id="trainerName" prefHeight="25.0" prefWidth="150.0" />
+        </HBox>
+
     </VBox>
 
     <!-- Tabla de Pokémon -->
     <TableView fx:id="pokemonTable" layoutX="10" layoutY="130" prefHeight="400.0" prefWidth="600.0" styleClass="table-view">
         <columns>
             <TableColumn fx:id="selectColumn" text="Seleccionar" />
-            <TableColumn fx:id="nameColumn" styleClass="table-column" text="Nombre" />
-            <TableColumn fx:id="numberColumn" styleClass="table-column" text="Número" />
-            <TableColumn fx:id="typeColumn" styleClass="table-column" text="Tipo" />
+            <TableColumn fx:id="nameColumn" text="Nombre" />
+            <TableColumn fx:id="numberColumn" text="Número" />
+            <TableColumn fx:id="typeColumn" text="Tipo" />
         </columns>
     </TableView>
 
     <!-- Detalles del Pokémon -->
-    <VBox fx:id="detailsBox" layoutX="620" layoutY="130" maxWidth="250" prefHeight="400.0" prefWidth="236.0" style="-fx-padding: 10;">
-        <ImageView fx:id="pokemonImage" fitHeight="200" fitWidth="200" styleClass="image-view" />
-        <TextArea fx:id="descriptionArea" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area" wrapText="true" />
+    <VBox fx:id="detailsBox" layoutX="620" layoutY="130" prefHeight="400.0" prefWidth="236.0" style="-fx-padding: 10; -fx-background-color: white;         -fx-padding: 10;         -fx-background-radius: 15;         -fx-border-radius: 15;         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 5);">
+        <ImageView fx:id="pokemonImage" fitHeight="179.0" fitWidth="215.0" />
+        <TextArea fx:id="descriptionArea" editable="false" prefHeight="251.0" prefWidth="216.0" wrapText="true" />
     </VBox>
 
     <!-- Botones -->
-    <HBox layoutX="10" layoutY="550" spacing="10">
-        <Button mnemonicParsing="false" text="To PDF" onAction="#savePokemonToPDF">
-            <HBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </HBox.margin>
-        </Button>
-        <Button fx:id="saveButton" onAction="#savePokemonToPDF" text="Save to PDF" />
+    <HBox layoutX="10.0" layoutY="530.0" spacing="10" style="-fx-padding: 10;">
+        <Button onAction="#savePokemonToPDF" prefHeight="25.0" prefWidth="100.0" text="Guardar PDF" />
     </HBox>
 
 </AnchorPane>

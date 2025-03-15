@@ -163,3 +163,77 @@ public class PokedexController {
     }
     */
 
+
+
+FMXL anterior a organizar todo:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+        opacity="0.7"
+        prefHeight="600.0"
+        prefWidth="800.0"
+        style="-fx-background-image: url('pokemonFondo.jpeg'); -fx-background-size: cover;"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.example.PokedexController">
+    <!--  prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css"> -->
+    <!-- Campos de búsqueda y nombre del entrenador -->
+    <VBox layoutX="10" layoutY="10" spacing="10" style="-fx-background-color: red;">
+        <HBox prefHeight="25.0" prefWidth="320.0" spacing="10">
+            <Label prefHeight="17.0" prefWidth="155.0" text="Buscar por Nombre:" />
+            <TextField fx:id="searchByName" prefHeight="25.0" prefWidth="120.0">
+            <HBox.margin>
+               <Insets left="21.0" />
+            </HBox.margin></TextField>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+        </HBox>
+        <HBox prefHeight="38.0" prefWidth="320.0" spacing="10">
+            <Label text="Nombre del Entrenador:" />
+            <TextField fx:id="trainerName" prefHeight="25.0" prefWidth="123.0" />
+        </HBox>
+    </VBox>
+
+    <!-- Tabla de Pokémon -->
+    <TableView fx:id="pokemonTable" layoutX="10" layoutY="130" prefHeight="400.0" prefWidth="600.0" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="selectColumn" text="Seleccionar" />
+            <TableColumn fx:id="nameColumn" styleClass="table-column" text="Nombre" />
+            <TableColumn fx:id="numberColumn" styleClass="table-column" text="Número" />
+            <TableColumn fx:id="typeColumn" styleClass="table-column" text="Tipo" />
+        </columns>
+    </TableView>
+
+    <!-- Detalles del Pokémon -->
+    <VBox fx:id="detailsBox" layoutX="620" layoutY="130" maxWidth="250" prefHeight="400.0" prefWidth="236.0" style="-fx-padding: 10;">
+        <ImageView fx:id="pokemonImage" fitHeight="139.0" fitWidth="136.0" styleClass="image-view" />
+        <TextArea fx:id="descriptionArea" editable="false" prefHeight="251.0" prefWidth="216.0" styleClass="text-area" wrapText="true" />
+    </VBox>
+
+    <!-- Botones -->
+    <HBox layoutX="10.0" layoutY="530.0" spacing="10">
+        <Button mnemonicParsing="false" onAction="#savePokemonToPDF" prefHeight="25.0" prefWidth="60.0" text="To PDF">
+            <HBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin>
+        </Button>
+    </HBox>
+      <TextField fx:id="searchByType" layoutX="430.0" layoutY="21.0" prefHeight="25.0" prefWidth="208.0" />
+      <Label layoutX="336.0" layoutY="25.0" prefHeight="17.0" prefWidth="93.0" text="Buscar por Tipo:" />
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+
+</AnchorPane>
+
