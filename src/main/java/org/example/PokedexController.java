@@ -8,13 +8,14 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class PokedexController {
 
@@ -74,7 +75,7 @@ public class PokedexController {
     private void loadPokemonData() {
         progressBar.setVisible(true);
         progressBar.setProgress(0);
-        int totalPokemon = 10;
+        int totalPokemon = 22;
 
         CompletableFuture.runAsync(() -> {
             for (int i = 1; i <= totalPokemon; i++) {
@@ -96,17 +97,29 @@ public class PokedexController {
 
     @FXML
     private void savePokemonToPDF() {
+
         List<Pokemon> selectedPokemons = pokemonTable.getSelectionModel().getSelectedItems();
 
         if (!selectedPokemons.isEmpty()) {
             String filePath = Paths.get(System.getProperty("user.home"), "pokemon_details.pdf").toString();
             String trainer = trainerName.getText();
             PokemonPDFGenerator.generatePokemonPDF(selectedPokemons, filePath, trainer);
+
         } else {
             System.out.println("No hay ningún Pokémon seleccionado.");
         }
+
+
+        mostrarAlerta();
     }
 
+    private void mostrarAlerta() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText(null);
+        alert.setContentText("¡El PDF se ha guardado correctamente en !");
+        alert.showAndWait(); // Muestra la alerta y espera que el usuario la cierre
+    }
 
     private void filterPokemonList() {
         String nameFilter = searchByName.getText().toLowerCase();

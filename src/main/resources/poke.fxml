@@ -30,7 +30,7 @@
 
 
     <!-- Tabla de Pokémon -->
-    <TableView fx:id="pokemonTable" layoutX="10" layoutY="149.0" prefHeight="381.0" prefWidth="600.0" styleClass="table-view">
+    <TableView fx:id="pokemonTable" layoutX="10" layoutY="149.0" prefHeight="381.0" prefWidth="260.0" styleClass="table-view">
 
         <columns>
             <TableColumn fx:id="nameColumn" text="Nombre" />
