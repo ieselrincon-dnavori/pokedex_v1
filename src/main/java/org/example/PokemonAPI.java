@@ -25,13 +25,14 @@ public class PokemonAPI {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         JsonObject jsonObject = new Gson().fromJson(response.body(), JsonObject.class);
 
-        // Recuperar datos básicos del Pokémon
+        // Recuperar datos básicos del Pokémon,nombre,numero,typo,img miniatura
         String name = jsonObject.get("name").getAsString();
         int number = jsonObject.get("id").getAsInt();
         String type = jsonObject.getAsJsonArray("types").get(0).getAsJsonObject().get("type").getAsJsonObject().get("name").getAsString();
         String imageUrl = jsonObject.getAsJsonObject("sprites").get("front_default").getAsString();
 
-        JsonArray abilitiesArray = jsonObject.getAsJsonArray("abilities");
+        //Las habilidades.
+        JsonArray abilitiesArray = jsonObject.getAsJsonArray("abilities"); 
         String abilities = StreamSupport.stream(abilitiesArray.spliterator(), false)
                 .map(element -> element.getAsJsonObject().getAsJsonObject("ability").get("name").getAsString())
                 .collect(Collectors.joining(", "));
@@ -53,6 +54,7 @@ public class PokemonAPI {
         String evolutionChainUrl = speciesObject.getAsJsonObject("evolution_chain").get("url").getAsString();
 
         // Devolver un nuevo Pokémon con todos los datos
+        //quitar evolution chain, no funciona bien.
         return new Pokemon(name, number, type, abilities, height, weight, imageUrl, baseExperience, habitat, evolutionChainUrl);
     }
 
