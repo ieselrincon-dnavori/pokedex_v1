@@ -81,10 +81,10 @@ public class PokedexController {
             for (int i = 1; i <= totalPokemon; i++) {
                 try {
                     Pokemon pokemon = PokemonAPI.getPokemon(i);
-                    int progress = i; // Captura el índice actual
+                    int progress = i;
                     javafx.application.Platform.runLater(() -> {
                         pokemonData.add(pokemon);
-                        progressBar.setProgress((double) progress / totalPokemon); // Actualiza el progreso
+                        progressBar.setProgress((double) progress / totalPokemon); //actualizar progrse
                     });
                 } catch (IOException | InterruptedException e) {
                     ErrorManager.handleException(e, "Error en la API", true);
